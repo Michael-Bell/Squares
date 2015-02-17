@@ -1,5 +1,6 @@
 package ca.michaelbell.gameobjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -18,6 +19,7 @@ public class Player {
     //  2 == East
     //  3 == South
     //  4 == West
+    //  0 == Stopped
 
     public Player(float x, float y, int width, int height) {
         direction = 1;
@@ -30,39 +32,55 @@ public class Player {
     }
 
     public void update(float delta) {
-
         //velocity.add(acceleration.cpy().scl(delta));
-
         position.add(velocity.cpy().scl(delta));
-
-
     }
-
 
 
     public void Left() {
-        velocity.x = -speed;
-        velocity.y = 0;;
+        if(this.direction == 1 || this.direction == 3 || this.direction == 0) {
+            velocity.x = -speed;
+            velocity.y = 0;
+           setDirection(2);
+            Gdx.app.log("Player", "Left");
+        }
     }
 
     public void Right() {
-        velocity.x = speed;
-        velocity.y = 0;;
+        if(this.direction == 1 || this.direction == 3 || this.direction == 0) {
+            velocity.x = speed;
+            velocity.y = 0;
+            setDirection(4);
+            Gdx.app.log("Player", "Right");
+        }
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 
     public void Up() {
-        velocity.y = -speed;
-        velocity.x = 0;;
+        if(this.direction == 2 || this.direction == 4 || this.direction == 0) {
+            velocity.y = -speed;
+            velocity.x = 0;
+            setDirection(1);
+            Gdx.app.log("Player", "Up");
+        }
     }
 
     public void Down() {
-        velocity.y = speed;
-        velocity.x = 0;;
+        if(this.direction == 2 || this.direction == 4 || this.direction == 0) {
+            velocity.y = speed;
+            velocity.x = 0;
+            setDirection(3);
+            Gdx.app.log("Player", "Down");
+        }
     }
 
     public void Stop(){
         velocity.x = 0;
         velocity.y = 0;
+        setDirection(0);
     }
 
     public float getX() {
