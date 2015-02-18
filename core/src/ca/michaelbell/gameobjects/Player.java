@@ -67,6 +67,7 @@ public class Player {
     }
 
     public void setDirection(int direction) {
+        trail.newTrail();
         this.direction = direction;
 
     }

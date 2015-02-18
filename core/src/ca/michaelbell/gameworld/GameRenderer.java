@@ -15,7 +15,6 @@ public class GameRenderer {
     private GameWorld myWorld;
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
-
     private SpriteBatch batcher;
 
     private int midPointY;
@@ -40,15 +39,16 @@ public class GameRenderer {
     }
 
     public void render(float runTime) {
-
-        // We will move these outside of the loop for performance later.
-        Player player = myWorld.getPlayer();
-
         // Fill the entire screen with black, to prevent potential flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // We will move these outside of the loop for performance later.
+        Player player = myWorld.getPlayer();
+
+
 
         player.getTrail().render(shapeRenderer);
+
 
         // Begin SpriteBatch
         batcher.begin();
@@ -64,6 +64,7 @@ public class GameRenderer {
 
         // End SpriteBatch
         batcher.end();
+
 
     }
 }
