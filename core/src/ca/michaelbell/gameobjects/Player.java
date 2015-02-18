@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class Player {
+    public Vector2 getPosition() {
+        return position;
+    }
+
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 acceleration;
@@ -13,6 +17,12 @@ public class Player {
     private int width;
     private int height;
     private int speed;
+
+    public Trail getTrail() {
+        return trail;
+    }
+
+    private Trail trail;
 
     private int direction;
     //  1 == North
@@ -29,6 +39,7 @@ public class Player {
         velocity = new Vector2(0, 0);
         speed = 75;
         acceleration = new Vector2(0, 460);
+        trail = new Trail(this);
     }
 
     public void update(float delta) {
@@ -57,6 +68,7 @@ public class Player {
 
     public void setDirection(int direction) {
         this.direction = direction;
+
     }
 
     public void Up() {

@@ -16,6 +16,7 @@ public class GameWorld {
 
     public void update(float delta) {
         player.update(delta);
+        player.getTrail().update();
     }
 
     public Player getPlayer(){

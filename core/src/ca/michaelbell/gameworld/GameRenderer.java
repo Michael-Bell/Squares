@@ -48,16 +48,7 @@ public class GameRenderer {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Begin ShapeRenderer
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-
-        // Draw Background color
-        shapeRenderer.setColor(44/255f, 62/255f, 80/255f,1);
-        shapeRenderer.rect(0, 0, 136, midPointY + 66);
-
-
-        // End ShapeRenderer
-        shapeRenderer.end();
+        player.getTrail().render(shapeRenderer);
 
         // Begin SpriteBatch
         batcher.begin();
