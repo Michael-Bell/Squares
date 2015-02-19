@@ -16,16 +16,14 @@ public class GameRenderer {
     private OrthographicCamera cam;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batcher;
+    private Player player;
 
     private int midPointY;
     private int gameHeight;
 
-    public GameRenderer(GameWorld world, int gameHeight, int midPointY){
+    public GameRenderer(GameWorld world, int gameHeight, int midPointY) {
         myWorld = world;
 
-        // The word "this" refers to this instance.
-        // We are setting the instance variables' values to be that of the
-        // parameters passed in from GameScreen.
         this.gameHeight = gameHeight;
         this.midPointY = midPointY;
 
@@ -36,35 +34,21 @@ public class GameRenderer {
         batcher.setProjectionMatrix(cam.combined);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(cam.combined);
+        player = myWorld.getPlayer(); // who is that again?
+
     }
 
     public void render(float runTime) {
         // Fill the entire screen with black, to prevent potential flickering.
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // We will move these outside of the loop for performance later.
-        Player player = myWorld.getPlayer();
 
 
-
-        player.getTrail().render(shapeRenderer);
-
+        player.getTrail().render(shapeRenderer); // render the trail from the trail method
 
         // Begin SpriteBatch
         batcher.begin();
-        // Disable transparency
-        // This is good for performance when drawing images that do not require
-        // transparency.
-        batcher.disableBlending();
-        batcher.draw(AssetLoader.playerTexture, player.getX(), player.getY(), player.getWidth(), player.getHeight() );
-
-        // The bird needs transparency, so we enable that again.
-        batcher.enableBlending();
-
-
-        // End SpriteBatch
+        batcher.draw(AssetLoader.playerTexture, player.getX(), player.getY(), player.getWidth(), player.getHeight()); // Draw the player... He probably could be a rectangle... Oh well
         batcher.end();
-
-
     }
 }

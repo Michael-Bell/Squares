@@ -24,6 +24,8 @@ public class InputHandler implements InputProcessor {
             player.Down();
         if(keycode == Input.Keys.SPACE)
             player.Stop();
+        if(keycode == Input.Keys.R)
+            player.getTrail().Reset();
         return true;
     }
 

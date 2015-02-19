@@ -5,31 +5,15 @@ import com.badlogic.gdx.math.Vector2;
 
 
 public class Player {
-    public Vector2 getPosition() {
-        return position;
-    }
-
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 acceleration;
-
     private float rotation;
     private int width;
     private int height;
     private int speed;
-
-    public Trail getTrail() {
-        return trail;
-    }
-
     private Trail trail;
-
     private int direction;
-    //  1 == North
-    //  2 == East
-    //  3 == South
-    //  4 == West
-    //  0 == Stopped
 
     public Player(float x, float y, int width, int height) {
         direction = 1;
@@ -42,23 +26,37 @@ public class Player {
         trail = new Trail(this);
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+    //  1 == North
+    //  2 == East
+    //  3 == South
+    //  4 == West
+    //  0 == Stopped
+
+    public Trail getTrail() {
+        return trail;
+    }
+
     public void update(float delta) {
         //velocity.add(acceleration.cpy().scl(delta));
         position.add(velocity.cpy().scl(delta));
     }
 
+// TODO: Find Better Logic System
 
     public void Left() {
-        if(this.direction == 1 || this.direction == 3 || this.direction == 0) {
+        if (this.direction == 1 || this.direction == 3 || this.direction == 0) {
             velocity.x = -speed;
             velocity.y = 0;
-           setDirection(2);
+            setDirection(2);
             Gdx.app.log("Player", "Left");
         }
     }
 
     public void Right() {
-        if(this.direction == 1 || this.direction == 3 || this.direction == 0) {
+        if (this.direction == 1 || this.direction == 3 || this.direction == 0) {
             velocity.x = speed;
             velocity.y = 0;
             setDirection(4);
@@ -73,7 +71,7 @@ public class Player {
     }
 
     public void Up() {
-        if(this.direction == 2 || this.direction == 4 || this.direction == 0) {
+        if (this.direction == 2 || this.direction == 4 || this.direction == 0) {
             velocity.y = -speed;
             velocity.x = 0;
             setDirection(1);
@@ -82,7 +80,7 @@ public class Player {
     }
 
     public void Down() {
-        if(this.direction == 2 || this.direction == 4 || this.direction == 0) {
+        if (this.direction == 2 || this.direction == 4 || this.direction == 0) {
             velocity.y = speed;
             velocity.x = 0;
             setDirection(3);
@@ -90,7 +88,7 @@ public class Player {
         }
     }
 
-    public void Stop(){
+    public void Stop() {
         velocity.x = 0;
         velocity.y = 0;
         setDirection(0);

@@ -1,16 +1,12 @@
 package ca.michaelbell.gameworld;
 
 import ca.michaelbell.gameobjects.Player;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 
-/**
- * Created by Michael on 2015-01-31.
- */
+
 public class GameWorld {
     private Player player;
 
-    public GameWorld(int midpointX, int midpointY){
+    public GameWorld(int midpointX, int midpointY) {
         player = new Player(midpointX, midpointY, 16, 16);
     }
 
@@ -19,7 +15,7 @@ public class GameWorld {
         player.getTrail().update();
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return player;
     }
 }
