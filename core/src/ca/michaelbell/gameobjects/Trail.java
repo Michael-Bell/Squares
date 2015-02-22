@@ -66,7 +66,7 @@ public class Trail {
         while (itr.hasNext()) { // iterator
             shapeRenderer.setColor(0 / 255f, 255 / 255f, 9 / 255f, 1); // green
             Vector2[] vect = itr.next();
-            Gdx.app.log("Trail", vect[1].toString());
+         //   Gdx.app.log("Trail", vect[1].toString());
             shapeRenderer.rectLine(vect[0], vect[1], 2.5f);
         }
         shapeRenderer.end();

@@ -21,14 +21,14 @@ public class GameRenderer {
     private int midPointY;
     private int gameHeight;
 
-    public GameRenderer(GameWorld world, int gameHeight, int midPointY) {
+    public GameRenderer(GameWorld world, int gameWidth,  int gameHeight, int midPointY) {
         myWorld = world;
 
         this.gameHeight = gameHeight;
         this.midPointY = midPointY;
 
         cam = new OrthographicCamera();
-        cam.setToOrtho(true, 136, gameHeight);
+        cam.setToOrtho(true, gameWidth, gameHeight);
 
         batcher = new SpriteBatch();
         batcher.setProjectionMatrix(cam.combined);
