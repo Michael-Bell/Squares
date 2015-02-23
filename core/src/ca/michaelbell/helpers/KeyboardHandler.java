@@ -1,6 +1,8 @@
 package ca.michaelbell.helpers;
 
 import ca.michaelbell.gameobjects.Player;
+import ca.michaelbell.gameobjects.easterEgg;
+import ca.michaelbell.gameworld.GameWorld;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input;
@@ -13,9 +15,12 @@ import com.badlogic.gdx.math.Vector2;
 public class KeyboardHandler implements InputProcessor {
     private Player player;
     private Vector2 lastTouch = new Vector2();
-
-    public KeyboardHandler(Player myplayer) {
-        player = myplayer;
+    private easterEgg egg;
+    private GameWorld world;
+    public KeyboardHandler(GameWorld world) {
+        player = world.getPlayer();
+        this.egg = world.getEgg();
+        this.world =world;
     }
 
     @Override
@@ -32,6 +37,8 @@ public class KeyboardHandler implements InputProcessor {
             player.Stop();
         if (keycode == Input.Keys.R)
             player.getTrail().Reset();
+        if(keycode == Input.Keys.J)
+            egg.specialTrail(player, world);
         return true;
     }
 

@@ -30,8 +30,7 @@ public class GameScreen implements Screen {
 
         world = new GameWorld(midPointX, midPointY); // initialize world
         renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight, midPointY); // initialize renderer
-        Gdx.input.setInputProcessor(new KeyboardHandler(world.getPlayer()));
-        InputProcessor inputProcessorOne = new KeyboardHandler(world.getPlayer());
+        InputProcessor inputProcessorOne = new KeyboardHandler(world);
         TouchHandler inputProcessorTwo = new TouchHandler(new TouchHandler.DirectionListener() {
 
             @Override

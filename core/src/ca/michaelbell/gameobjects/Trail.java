@@ -9,6 +9,15 @@ import java.util.Iterator;
 
 public class Trail {
     Vector2 currentLine[]; // Array to hold the vector of the current path [0] is starting point, [1] is current point(updates)
+
+    public ArrayList getTrailList() {
+        return TrailList;
+    }
+
+    public void setTrailList(ArrayList trailList) {
+        TrailList = trailList;
+    }
+
     ArrayList TrailList; // list of line segments
     Player player; // local reference to the player
     private Iterator<Vector2[]> itr; // iterator to go through line segments when rendering
