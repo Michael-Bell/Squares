@@ -21,6 +21,7 @@ public class KeyboardHandler implements InputProcessor {
         player = world.getPlayer();
         this.egg = world.getEgg();
         this.world =world;
+        Gdx.app.log("KeyboardHander", "init");
     }
 
     @Override

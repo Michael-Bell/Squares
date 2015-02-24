@@ -3,6 +3,7 @@ package ca.michaelbell.screens;
 
 import ca.michaelbell.gameworld.GameRenderer;
 import ca.michaelbell.gameworld.GameWorld;
+import ca.michaelbell.helpers.InputHandler;
 import ca.michaelbell.helpers.KeyboardHandler;
 import ca.michaelbell.helpers.TouchHandler;
 import com.badlogic.gdx.Gdx;
@@ -30,51 +31,9 @@ public class GameScreen implements Screen {
 
         world = new GameWorld(midPointX, midPointY); // initialize world
         renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight, midPointY); // initialize renderer
-        InputProcessor inputProcessorOne = new KeyboardHandler(world);
-        TouchHandler inputProcessorTwo = new TouchHandler(new TouchHandler.DirectionListener() {
 
-            @Override
-            public void onUp() {
-                world.getPlayer().Up();
-                Gdx.app.log("Touch", "up");
-            }
 
-            @Override
-            public void onRight() {
-                world.getPlayer().Right();
-                Gdx.app.log("Touch", "Right");
-
-            }
-
-            @Override
-            public void onLeft() {
-                world.getPlayer().Left();
-                Gdx.app.log("Touch", "Left");
-
-            }
-
-            @Override
-            public void onDown() {
-                world.getPlayer().Down();
-                Gdx.app.log("Touch", "Down");
-
-            }
-
-            @Override
-            public void reset(){
-                world.getPlayer().getTrail().Reset();
-            }
-
-            @Override
-            public void pause() {
-                world.getPlayer().Stop();
-            }
-        });
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(inputProcessorOne);
-        inputMultiplexer.addProcessor(inputProcessorTwo);
-
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        Gdx.input.setInputProcessor(new InputHandler(world).getInputMultiplexer());
     }
 
     @Override
