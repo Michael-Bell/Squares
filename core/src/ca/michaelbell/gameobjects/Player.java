@@ -16,7 +16,7 @@ public class Player {
     private int direction;
 
     public Player(float x, float y, int width, int height) {
-        direction = 1;
+        direction = 0;
         this.width = width;
         this.height = height;
         position = new Vector2(x, y);
@@ -65,7 +65,8 @@ public class Player {
     }
 
     public void setDirection(int direction) {
-        trail.newTrail();
+        if(direction != 0)
+            trail.newTrail();
         this.direction = direction;
 
     }

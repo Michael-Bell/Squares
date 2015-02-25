@@ -2,6 +2,7 @@ package ca.michaelbell.gameobjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -24,26 +25,36 @@ public class Trail {
     private float trailWidth; // how wide the trail is so I can change it without breaking code
     private Boolean push; // switches, pushes every other line x origin left
     // TODO Find better var name
-
+    private Intersector intersect;
     // rect(float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY, float degrees)
     public Trail(Player player) {
-        trailWidth = 5;  // 5 px for now
         this.player = player;
         TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
         currentLine = new Vector2[2];
-        currentLine[0] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2); // .cpy to make it static, adds half the player size to try centering... Also needs to have half the line removed?
-        currentLine[1] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
-        itr = TrailList.iterator(); // init the iterator
-        push = true;
+        Reset();
     }
 
     public void update() {
         currentLine[1] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
+        itr = TrailList.iterator();
+        while (itr.hasNext()) { // iterator
+            Vector2[] vect = itr.next();
+            float intersecting = intersect.distanceSegmentPoint(vect[0], vect[1], currentLine[1]);
+            if(intersecting <1) {
+                Gdx.app.log("Trail", Float.toString(intersecting));
+                Reset();
+            }
+        }
     }
 
     public void Reset(){
-        trailWidth = 5;  // 5 px for now
+        Vector2 offScreen[] = new Vector2[2];
+        offScreen[0] = new Vector2(-100,-100);
+        offScreen[1] = new Vector2(-50,-50);
+        intersect = new Intersector();
+        trailWidth = player.getWidth();  // 5 px for now
         TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
+        TrailList.add(offScreen);
         currentLine = new Vector2[2];
         currentLine[0] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2); // .cpy to make it static, adds half the player size to try centering... Also needs to have half the line removed?
         currentLine[1] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
