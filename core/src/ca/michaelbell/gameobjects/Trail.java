@@ -20,22 +20,22 @@ public class Trail {
     }
 
     ArrayList TrailList; // list of line segments
-    Player player; // local reference to the player
+    Square square; // local reference to the square
     private Iterator<Vector2[]> itr; // iterator to go through line segments when rendering
     private float trailWidth; // how wide the trail is so I can change it without breaking code
     private Boolean push; // switches, pushes every other line x origin left
     // TODO Find better var name
     private Intersector intersect;
     // rect(float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY, float degrees)
-    public Trail(Player player) {
-        this.player = player;
+    public Trail(Square square) {
+        this.square = square;
         TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
         currentLine = new Vector2[2];
         Reset();
     }
 
     public void update() {
-        currentLine[1] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
+        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
         itr = TrailList.iterator();
         while (itr.hasNext()) { // iterator
             Vector2[] vect = itr.next();
@@ -52,12 +52,12 @@ public class Trail {
         offScreen[0] = new Vector2(-100,-100);
         offScreen[1] = new Vector2(-50,-50);
         intersect = new Intersector();
-        trailWidth = player.getWidth();  // 5 px for now
+        trailWidth = square.getWidth();  // 5 px for now
         TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
         TrailList.add(offScreen);
         currentLine = new Vector2[2];
-        currentLine[0] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2); // .cpy to make it static, adds half the player size to try centering... Also needs to have half the line removed?
-        currentLine[1] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
+        currentLine[0] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); // .cpy to make it static, adds half the square size to try centering... Also needs to have half the line removed?
+        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
         itr = TrailList.iterator(); // init the iterator
         push = true;
     }
@@ -67,8 +67,8 @@ public class Trail {
         temp[0] = currentLine[0].cpy();
         temp[1] = currentLine[1].cpy();
         TrailList.add(temp);
-        currentLine[0] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
-        currentLine[1] = player.getPosition().cpy().add(player.getWidth() / 2, player.getHeight() / 2);
+        currentLine[0] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
+        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
         if(push)
             //currentLine[0].add(trailWidth/2,0);
         push = !push;
