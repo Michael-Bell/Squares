@@ -1,6 +1,7 @@
 package ca.michaelbell.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import ca.michaelbell.gameworld.GameWorld;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -10,6 +11,25 @@ import java.util.Iterator;
 
 public class Trail {
     Vector2 currentLine[]; // Array to hold the vector of the current path [0] is starting point, [1] is current point(updates)
+    ArrayList TrailList; // list of line segments
+    Square square; // local reference to the square
+    private Iterator<Vector2[]> itr; // iterator to go through line segments when rendering
+    private float trailWidth; // how wide the trail is so I can change it without breaking code
+    private Boolean push; // switches, pushes every other line x origin left
+    // TODO Find better var name
+    private Intersector intersect;
+    // rect(float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY, float degrees)
+    public Trail(Square square, GameWorld world) {
+        this.square = square;
+        TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
+        currentLine = new Vector2[2];
+        Reset();
+
+    }
+
+    public Vector2[] getCurrentLine() {
+        return currentLine;
+    }
 
     public ArrayList getTrailList() {
         return TrailList;
@@ -19,32 +39,8 @@ public class Trail {
         TrailList = trailList;
     }
 
-    ArrayList TrailList; // list of line segments
-    Square square; // local reference to the square
-    private Iterator<Vector2[]> itr; // iterator to go through line segments when rendering
-    private float trailWidth; // how wide the trail is so I can change it without breaking code
-    private Boolean push; // switches, pushes every other line x origin left
-    // TODO Find better var name
-    private Intersector intersect;
-    // rect(float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY, float degrees)
-    public Trail(Square square) {
-        this.square = square;
-        TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
-        currentLine = new Vector2[2];
-        Reset();
-    }
-
     public void update() {
         currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
-        itr = TrailList.iterator();
-        while (itr.hasNext()) { // iterator
-            Vector2[] vect = itr.next();
-            float intersecting = intersect.distanceSegmentPoint(vect[0], vect[1], currentLine[1]);
-            if(intersecting <1) {
-                Gdx.app.log("Trail", Float.toString(intersecting));
-                Reset();
-            }
-        }
     }
 
     public void Reset(){
@@ -76,7 +72,8 @@ public class Trail {
         return currentLine; // if anyone wants it
     }
 
-    public void render(ShapeRenderer shapeRenderer) {
+    public void render(ShapeRenderer shapeRenderer, SpriteBatch batcher) {
+        batcher.end();
         itr = TrailList.iterator(); // reset on each render... Probably taxing, but I don't want to forget a render
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -90,5 +87,6 @@ public class Trail {
             shapeRenderer.rectLine(vect[0], vect[1], 2.5f);
         }
         shapeRenderer.end();
+        batcher.begin();
     }
 }

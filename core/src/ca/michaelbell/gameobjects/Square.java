@@ -1,32 +1,31 @@
 package ca.michaelbell.gameobjects;
 
-import com.badlogic.gdx.Gdx;
+import ca.michaelbell.gameworld.GameWorld;
 import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by 788732 on 25/02/2015.
  */
 public class Square {
+    Vector2 velocity;
     private Vector2 position;
-    private Vector2 velocity;
-    private Vector2 acceleration;
-    private float rotation;
     private int width;
     private int height;
     private int speed;
     private Trail trail;
     private int direction;
 
-    public Square(float x, float y, int width, int height) {
+    public Square(float x, float y, int width, int height, GameWorld world) {
         direction = 0;
         this.width = width;
         this.height = height;
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         speed = 75;
-        acceleration = new Vector2(0, 460);
-        trail = new Trail(this);
+        trail = new Trail(this, world);
+        world.getSquareList().add(this);
     }
+
 
     public Vector2 getPosition() {
         return position;
@@ -42,14 +41,13 @@ public class Square {
     }
 
     public void update(float delta) {
-        //velocity.add(acceleration.cpy().scl(delta));
         position.add(velocity.cpy().scl(delta));
     }
 
 // TODO: Find Better Logic System
 
     public void Left() {
-        if (this.direction == 1 || this.direction == 3 || this.direction == 0) {
+        if (this.direction == 1 || this.direction == 3 || this.direction == 0) { //TODO Switch logic, break if wrong direction, default to standard
             velocity.x = -speed;
             velocity.y = 0;
             setDirection(2);
@@ -109,7 +107,4 @@ public class Square {
         return height;
     }
 
-    public float getRotation() {
-        return rotation;
-    }
 }
