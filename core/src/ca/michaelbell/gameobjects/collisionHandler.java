@@ -25,13 +25,15 @@ public class CollisionHandler {
                 for (int b = 0; b <= trailList.size(); b++) {// for each square, go through the first squares trail segments
                     boolean actualPositive = true;
                     Vector2[] vect;
-                    if (b != trailList.size()) {
-                        vect = trailList.get(b);
-                    } else {
+                    if (b == trailList.size()) {
                         vect = square.getTrail().getCurrentLine();
-                        if (i == a)
-                            actualPositive = false;
+                    } else {
+                        vect = trailList.get(b);
                     }
+                    if ((b == trailList.size() || b == trailList.size() - 1) && i == a)
+                        actualPositive = false;
+
+
                     float intersecting = Intersector.distanceSegmentPoint(vect[0], vect[1], secondSquare.getPosition()); // does the first square trail segment collide w/ second square vector?
 
                     if (intersecting < 1) {
