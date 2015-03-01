@@ -54,4 +54,8 @@ public class GameWorld {
     public ArrayList<Square> getSquareList() {
         return squareList;
     }
+
+    public Enemy getEnemy() {
+        return enemy;
+    }
 }

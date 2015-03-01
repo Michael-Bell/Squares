@@ -53,7 +53,7 @@ public class Trail {
         TrailList.add(offScreen);
         currentLine = new Vector2[2];
         currentLine[0] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); // .cpy to make it static, adds half the square size to try centering... Also needs to have half the line removed?
-        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
+        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); //TODO remove square height/width things, put those into the renderer
         itr = TrailList.iterator(); // init the iterator
         push = true;
     }
@@ -64,7 +64,7 @@ public class Trail {
         temp[1] = currentLine[1].cpy();
         TrailList.add(temp);
         currentLine[0] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
-        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
+        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); //TODO remove width/height
         if(push)
             //currentLine[0].add(trailWidth/2,0);
         push = !push;
@@ -78,7 +78,7 @@ public class Trail {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(255 / 255f, 0 / 255f, 9 / 255f, 1); // red
-        shapeRenderer.rectLine(currentLine[0].cpy(), currentLine[1].cpy(), 2.5f); // curent line
+        shapeRenderer.rectLine(currentLine[0].cpy(), currentLine[1].cpy(), 2.5f); // current line
 
         while (itr.hasNext()) { // iterator
             shapeRenderer.setColor(0 / 255f, 255 / 255f, 9 / 255f, 1); // green

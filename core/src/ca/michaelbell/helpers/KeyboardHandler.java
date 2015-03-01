@@ -4,9 +4,8 @@ import ca.michaelbell.gameobjects.Player;
 import ca.michaelbell.gameobjects.easterEgg;
 import ca.michaelbell.gameworld.GameWorld;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -40,6 +39,10 @@ public class KeyboardHandler implements InputProcessor {
             player.getTrail().Reset();
         if(keycode == Input.Keys.J)
             egg.specialTrail(player, world);
+        if (keycode == Input.Keys.Q) {
+            world.getEnemy().setPosition(new Vector2(1920 / 2, 0));
+            world.getEnemy().getTrail().newTrail();
+        }
         return true;
     }
 

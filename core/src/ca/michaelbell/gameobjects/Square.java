@@ -21,7 +21,7 @@ public class Square {
         this.height = height;
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
-        speed = 75;
+        speed = 60;
         trail = new Trail(this, world);
         world.getSquareList().add(this);
     }
@@ -36,18 +36,22 @@ public class Square {
     //  4 == West
     //  0 == Stopped
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     public Trail getTrail() {
         return trail;
     }
+
+// TODO: Find Better Logic System
 
     public void update(float delta) {
         position.add(velocity.cpy().scl(delta));
     }
 
-// TODO: Find Better Logic System
-
     public void Left() {
-        if (this.direction == 1 || this.direction == 3 || this.direction == 0) { //TODO Switch logic, break if wrong direction, default to standard
+        if (this.direction == 1 || this.direction == 3 || this.direction == 0) { //TODO move all into setDirection, call setDirection from the Keyboard handler
             velocity.x = -speed;
             velocity.y = 0;
             setDirection(2);
@@ -106,5 +110,4 @@ public class Square {
     public float getHeight() {
         return height;
     }
-
 }
