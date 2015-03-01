@@ -1,6 +1,10 @@
 package ca.michaelbell.gameworld;
 
-import ca.michaelbell.gameobjects.*;
+import ca.michaelbell.gameobjects.Enemy;
+import ca.michaelbell.gameobjects.Player;
+import ca.michaelbell.gameobjects.Square;
+import ca.michaelbell.gameobjects.easterEgg;
+import ca.michaelbell.helpers.CollisionHandler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
