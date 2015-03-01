@@ -6,10 +6,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class CollisionHandler {
-    Iterator<Square> itr;
     private GameWorld world;
 
 
@@ -24,20 +22,25 @@ public class CollisionHandler {
             for (int a = 0; a < squareList.size(); a++) { // iterate through each square again so squarexsquare
                 ArrayList<Vector2[]> trailList = square.getTrail().getTrailList();
                 Square secondSquare = squareList.get(a);
-                for (int b = 0; b < trailList.size(); b++) {// for each square, go through the first squares trail segments
-                    Vector2[] vect = trailList.get(b);
+                for (int b = 0; b <= trailList.size(); b++) {// for each square, go through the first squares trail segments
+                    boolean actualPositive = true;
+                    Vector2[] vect;
+                    if (b != trailList.size()) {
+                        vect = trailList.get(b);
+                    } else {
+                        vect = square.getTrail().getCurrentLine();
+                        if (i == a)
+                            actualPositive = false;
+                    }
                     float intersecting = Intersector.distanceSegmentPoint(vect[0], vect[1], secondSquare.getPosition()); // does the first square trail segment collide w/ second square vector?
-                    if (b == trailList.size() - 1) {
-                        Gdx.app.log("For", "This");
-                        Gdx.app.log("Square", square.toString());
-                        Gdx.app.log("secondSquare", secondSquare.toString());
-                        Gdx.app.log("Intersecting", Float.toString(intersecting));
-                        Gdx.app.log("End", "this");
-                    }
-                    if (intersecting < 5) {
+
+                    if (intersecting < 1) {
                         Gdx.app.log("Trail", "Intersect");
-                        secondSquare.getTrail().Reset();
+                        if (actualPositive)
+                            secondSquare.getTrail().Reset();
                     }
+
+                    //todo does not detect collision on current line... why? B/C Current line is not added to trail list?
 
 
                 }
