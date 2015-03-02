@@ -5,6 +5,8 @@ import ca.michaelbell.gameobjects.Player;
 import ca.michaelbell.gameobjects.Square;
 import ca.michaelbell.gameobjects.easterEgg;
 import ca.michaelbell.helpers.CollisionHandler;
+import ca.michaelbell.screens.GameScreen;
+import ca.michaelbell.tron.Tron;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,10 +19,12 @@ public class GameWorld {
     private ArrayList<Square> squareList;
     private Enemy enemy;
     private CollisionHandler collisionHandler;
+    private Tron game;
 
-    public GameWorld(int midpointX, int midpointY) {
+    public GameWorld(int midpointX, int midpointY, Tron game) {
+        this.game = game;
         squareList = new ArrayList<Square>();
-        enemy = new Enemy(midpointX - 100, 5, 16, 16, this);
+        enemy = new Enemy(midpointX - 20, midpointY - 25, 16, 16, this);
         player = new Player(midpointX, midpointY, 16, 16, this);
         enemy.Down();
         egg = new easterEgg();
@@ -33,14 +37,14 @@ public class GameWorld {
         return egg;
     }
 
-    public void update(float delta) {
+    public void update(float delta, GameScreen screen) {
         Iterator<Square> squareIterator = squareList.iterator();
         while (squareIterator.hasNext()) {
             Square square = squareIterator.next();
             square.update(delta);
             square.getTrail().update();
         }
-        collisionHandler.update();
+        collisionHandler.update(screen);
     }
 
     public Player getPlayer() {
@@ -61,5 +65,9 @@ public class GameWorld {
 
     public Enemy getEnemy() {
         return enemy;
+    }
+
+    public Tron getGame() {
+        return game;
     }
 }

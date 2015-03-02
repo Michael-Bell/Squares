@@ -2,6 +2,7 @@ package ca.michaelbell.helpers;
 
 import ca.michaelbell.gameobjects.Square;
 import ca.michaelbell.gameworld.GameWorld;
+import ca.michaelbell.screens.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -11,12 +12,11 @@ import java.util.ArrayList;
 public class CollisionHandler {
     private GameWorld world;
 
-
     public CollisionHandler(GameWorld world) {
         this.world = world;
     }
 
-    public void update() {
+    public void update(GameScreen screen) {
         ArrayList<Square> squareList = world.getSquareList();
         for (int i = 0; i < squareList.size(); i++) { // iterate through all squares
             Square square = squareList.get(i); // set current square
@@ -37,13 +37,15 @@ public class CollisionHandler {
 
                     float intersecting = Intersector.distanceSegmentPoint(vect[0], vect[1], secondSquare.getPosition()); // does the first square trail segment collide w/ second square vector?
 
-                    if (intersecting < 1) {
+                    if (intersecting < secondSquare.getWidth() / 2) {
                         Gdx.app.log("Trail", "Intersect");
-                        if (actualPositive)
-                            secondSquare.getTrail().Reset();
+                        if (actualPositive) {
+                            screen.dispose();
+                            world.getGame().setEndScreen();
+                            //secondSquare.getTrail().Reset();
+                        }
                     }
 
-                    //todo does not detect collision on current line... why? B/C Current line is not added to trail list?
 
 
                 }

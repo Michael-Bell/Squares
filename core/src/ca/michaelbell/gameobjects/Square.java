@@ -21,7 +21,7 @@ public class Square {
         this.height = height;
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
-        speed = 60;
+        speed = 10;
         trail = new Trail(this, world);
         world.getSquareList().add(this);
     }

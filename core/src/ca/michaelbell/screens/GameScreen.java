@@ -4,32 +4,30 @@ package ca.michaelbell.screens;
 import ca.michaelbell.gameworld.GameRenderer;
 import ca.michaelbell.gameworld.GameWorld;
 import ca.michaelbell.helpers.InputHandler;
-import ca.michaelbell.helpers.KeyboardHandler;
-import ca.michaelbell.helpers.TouchHandler;
+import ca.michaelbell.tron.Tron;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 
 public class GameScreen implements Screen {
 
+    final Tron game;
     private GameWorld world;
     private GameRenderer renderer;
     private float runTime;
 
-    public GameScreen() {
+    public GameScreen(Tron Game) {
         Gdx.app.log("GameScreen", "Attached");
-
+        this.game = Game;
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
-        float gameWidth = 1920;
+        float gameWidth = 250;
         float gameHeight = screenHeight * gameWidth / screenWidth;
 
         int midPointY = (int) (gameHeight / 2);
         int midPointX = (int) (gameWidth / 2);
 
 
-        world = new GameWorld(midPointX, midPointY); // initialize world
+        world = new GameWorld(midPointX, midPointY, game); // initialize world
         renderer = new GameRenderer(world, (int) gameWidth, (int) gameHeight, midPointY); // initialize renderer
 
 
@@ -39,7 +37,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         runTime += delta;
-        world.update(delta);
+        world.update(delta, this);
         renderer.render(runTime);
     }
 
@@ -72,5 +70,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         // Leave blank
     }
+
 
 }

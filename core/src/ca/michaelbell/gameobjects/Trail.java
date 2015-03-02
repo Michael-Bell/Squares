@@ -40,7 +40,7 @@ public class Trail {
     }
 
     public void update() {
-        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
+        currentLine[1] = square.getPosition().cpy();
     }
 
     public void Reset(){
@@ -52,8 +52,8 @@ public class Trail {
         TrailList = new ArrayList<Vector2[]>(); // ArrayList of Vector2 arrays
         TrailList.add(offScreen);
         currentLine = new Vector2[2];
-        currentLine[0] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); // .cpy to make it static, adds half the square size to try centering... Also needs to have half the line removed?
-        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); //TODO remove square height/width things, put those into the renderer
+        currentLine[0] = square.getPosition().cpy();//.add(square.getWidth() / 2, square.getHeight() / 2); // .cpy to make it static, adds half the square size to try centering... Also needs to have half the line removed?
+        currentLine[1] = square.getPosition().cpy();//.add(square.getWidth() / 2, square.getHeight() / 2); //TODO remove square height/width things, put those into the renderer
         itr = TrailList.iterator(); // init the iterator
         push = true;
     }
@@ -63,8 +63,8 @@ public class Trail {
         temp[0] = currentLine[0].cpy();
         temp[1] = currentLine[1].cpy();
         TrailList.add(temp);
-        currentLine[0] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2);
-        currentLine[1] = square.getPosition().cpy().add(square.getWidth() / 2, square.getHeight() / 2); //TODO remove width/height
+        currentLine[0] = square.getPosition().cpy();//.add(square.getWidth() / 2, square.getHeight() / 2);
+        currentLine[1] = square.getPosition().cpy();//.add(square.getWidth() / 2, square.getHeight() / 2); //TODO remove width/height
         if(push)
             //currentLine[0].add(trailWidth/2,0);
         push = !push;
@@ -75,7 +75,6 @@ public class Trail {
     public void render(ShapeRenderer shapeRenderer, SpriteBatch batcher) {
         batcher.end();
         itr = TrailList.iterator(); // reset on each render... Probably taxing, but I don't want to forget a render
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(255 / 255f, 0 / 255f, 9 / 255f, 1); // red
         shapeRenderer.rectLine(currentLine[0].cpy(), currentLine[1].cpy(), 2.5f); // current line
