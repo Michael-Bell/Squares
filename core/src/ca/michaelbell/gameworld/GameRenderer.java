@@ -54,8 +54,8 @@ public class GameRenderer {
         itr = myWorld.getSquareList().iterator();
         while (itr.hasNext()) { // iterator
             Square square = itr.next();
-            batcher.draw(AssetLoader.playerTexture, square.getX() - square.getWidth() / 2, square.getY() - square.getHeight() / 2, square.getWidth(), square.getHeight()); // Draw the player... He probably could be a rectangle... Oh well
             square.getTrail().render(shapeRenderer, batcher); // render the trail from the trail method
+            batcher.draw(AssetLoader.playerTexture, square.getX() - square.getWidth() / 2, square.getY() - square.getHeight() / 2, square.getWidth(), square.getHeight()); // Draw the player... He probably could be a rectangle... Oh well
         }
         batcher.end();
     }
