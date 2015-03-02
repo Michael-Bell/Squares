@@ -1,6 +1,6 @@
 package ca.michaelbell.helpers;
 
-import ca.michaelbell.gameobjects.Player;
+import ca.michaelbell.gameobjects.Square;
 import ca.michaelbell.gameobjects.easterEgg;
 import ca.michaelbell.gameworld.GameWorld;
 import com.badlogic.gdx.Gdx;
@@ -8,37 +8,31 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Created by Michael on 2015-01-31.
  */
 public class KeyboardHandler implements InputProcessor {
-    private Player player;
+    private ArrayList<Square> squareArrayList;
     private Vector2 lastTouch = new Vector2();
     private easterEgg egg;
     private GameWorld world;
     public KeyboardHandler(GameWorld world) {
-        player = world.getPlayer();
+        squareArrayList = world.getSquareList();
         this.egg = world.getEgg();
         this.world =world;
-        Gdx.app.log("KeyboardHander", "init");
+        Gdx.app.log("KeyboardHandler", "init");
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.A)
-            player.Left();
-        if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.D)
-            player.Right();
-        if (keycode == Input.Keys.UP || keycode == Input.Keys.W)
-            player.Up();
-        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.S)
-            player.Down();
-        if (keycode == Input.Keys.SPACE)
-            player.Stop();
-        if (keycode == Input.Keys.R)
-            player.getTrail().Reset();
-        if(keycode == Input.Keys.J)
-            egg.specialTrail(player, world);
+        Iterator<Square> itr = world.getSquareList().iterator(); // Iterate through the squares
+        while (itr.hasNext()) {
+            itr.next().controlCheck(keycode);// send keys to players for checks
+        }
+
         if (keycode == Input.Keys.Q) {
             world.getEnemy().setPosition(new Vector2(1920 / 2, 0));
             world.getEnemy().getTrail().newTrail();

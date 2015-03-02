@@ -42,7 +42,6 @@ public class CollisionHandler {
                         if (actualPositive) {
                             screen.dispose();
                             world.getGame().setEndScreen();
-                            //secondSquare.getTrail().Reset();
                         }
                     }
 

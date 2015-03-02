@@ -7,12 +7,14 @@ import ca.michaelbell.gameobjects.easterEgg;
 import ca.michaelbell.helpers.CollisionHandler;
 import ca.michaelbell.screens.GameScreen;
 import ca.michaelbell.tron.Tron;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GameWorld {
-    private Player player;
+    private Player player, player2;
     private easterEgg egg;
     private int midpointX, midpointY;
 
@@ -24,9 +26,12 @@ public class GameWorld {
     public GameWorld(int midpointX, int midpointY, Tron game) {
         this.game = game;
         squareList = new ArrayList<Square>();
-        enemy = new Enemy(midpointX - 20, midpointY - 25, 16, 16, this);
-        player = new Player(midpointX, midpointY, 16, 16, this);
-        enemy.Down();
+        enemy = new Enemy(-50, -50, 16, 16, this);
+        //    public Player(float x, float y, int width, int height, Color color, int UP, int DOWN, int LEFT, int RIGHT, int STOP, int RESET, int EGG, GameWorld world ) {
+
+        player = new Player(midpointX * 2, midpointY, 16, 16, Color.CYAN, Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SPACE, Input.Keys.BACKSLASH, Input.Keys.END, this);
+        player2 = new Player(0, midpointY, 16, 16, Color.ORANGE, Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.C, Input.Keys.V, Input.Keys.X, this);
+
         egg = new easterEgg();
         this.midpointX = midpointX;
         this.midpointY = midpointY;
