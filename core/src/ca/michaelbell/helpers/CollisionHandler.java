@@ -31,14 +31,23 @@ public class CollisionHandler {
                     } else {
                         vect = trailList.get(b);
                     }
-                    if ((b == trailList.size() || b == trailList.size() - 1) && i == a)
+                    float size = 500;
+                    //    float secondSize = trailList.get(trailList.size()-1)[0].dst2(trailList.get(trailList.size()-1)[1]);
+                    try {
+                        size = trailList.get(trailList.size() - 2)[1].dst2(trailList.get(trailList.size() - 2)[0]);
+
+                    } catch (Exception e) {
+                        // e.printStackTrace();
+                    }
+                    if (size <= square.getWidth() || size <= square.getHeight())
+                        Gdx.app.log("size", Float.toString(size));
+                    if ((b == trailList.size() || b == trailList.size() - 1 || (b == trailList.size() - 3 && size <= square.getWidth() || size <= square.getHeight())) && i == a) {
                         actualPositive = false;
-
-
+                    }
                     float intersecting = Intersector.distanceSegmentPoint(vect[0], vect[1], secondSquare.getPosition()); // does the first square trail segment collide w/ second square vector?
 
                     if (intersecting < secondSquare.getWidth() / 2) {
-                        Gdx.app.log("Trail", "Intersect");
+                        //Gdx.app.log("Trail", "Intersect");
                         if (actualPositive) {
                             screen.dispose();
                             world.getGame().setEndScreen();
