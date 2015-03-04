@@ -18,9 +18,9 @@ public class GameScreen implements Screen {
     public GameScreen(Tron Game) {
         Gdx.app.log("GameScreen", "Attached");
         this.game = Game;
+        float gameWidth = game.getGameWidth();
         float screenWidth = Gdx.graphics.getWidth();
         float screenHeight = Gdx.graphics.getHeight();
-        float gameWidth = 250;
         float gameHeight = screenHeight * gameWidth / screenWidth;
 
         int midPointY = (int) (gameHeight / 2);

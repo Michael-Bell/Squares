@@ -9,9 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Iterator;
 
-/**
- * Created by Michael on 2015-01-31.
- */
+
 public class GameRenderer {
     private GameWorld myWorld;
     private OrthographicCamera cam;

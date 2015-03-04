@@ -50,6 +50,7 @@ public class CollisionHandler {
                         //Gdx.app.log("Trail", "Intersect");
                         if (actualPositive) {
                             screen.dispose();
+                            world.getGame().setEndPlayer(secondSquare.getName());
                             world.getGame().setEndScreen();
                         }
                     }

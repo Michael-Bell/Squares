@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Square {
     Vector2 velocity;
+    private String name;
     private Vector2 position;
     private int width;
     private int height;
@@ -18,7 +19,8 @@ public class Square {
     private Trail trail;
     private int direction;
     private Color color;
-    public Square(float x, float y, int width, int height, GameWorld world) {
+
+    public Square(float x, float y, int width, int height, String name, GameWorld world) {
         direction = 0; // Squares should start still, so 0 direction
         this.width = width;
         this.height = height;
@@ -28,6 +30,7 @@ public class Square {
         trail = new Trail(this, world); // attatch a trail
         world.getSquareList().add(this); // add the square to the list of squares in the current world for iterating
         color = Color.ORANGE;
+        this.name = name;
     }
 
 
@@ -139,5 +142,9 @@ public class Square {
 
         shapeRenderer.end(); // finished with shape renderer
         batcher.begin(); // start batcher again
+    }
+
+    public String getName() {
+        return name;
     }
 }

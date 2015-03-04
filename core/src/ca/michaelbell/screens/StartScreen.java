@@ -12,8 +12,12 @@ public class StartScreen implements Screen {
 
     public StartScreen(Tron game) {
         this.game = game;
+        float gameWidth = game.getGameWidth();
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+        float gameHeight = screenHeight * gameWidth / screenWidth;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, (int) (gameWidth), (int) (gameHeight));
 
     }
 

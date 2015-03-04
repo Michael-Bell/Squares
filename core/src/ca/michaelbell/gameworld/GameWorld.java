@@ -26,11 +26,11 @@ public class GameWorld {
     public GameWorld(int midpointX, int midpointY, Tron game) {
         this.game = game;
         squareList = new ArrayList<Square>();
-        enemy = new Enemy(-50, -50, 16, 16, this);
+        enemy = new Enemy(-50, -50, 16, 16, "Enemy1", this);
         //    public Player(float x, float y, int width, int height, Color color, int UP, int DOWN, int LEFT, int RIGHT, int STOP, int RESET, int EGG, GameWorld world ) {
 
-        player = new Player(midpointX * 2, midpointY, 16, 16, Color.CYAN, Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SPACE, Input.Keys.BACKSLASH, Input.Keys.END, this);
-        player2 = new Player(0, midpointY, 16, 16, Color.ORANGE, Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.C, Input.Keys.V, Input.Keys.X, this);
+        player = new Player(midpointX * 2, midpointY, 16, 16, Color.CYAN, Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.SPACE, Input.Keys.BACKSLASH, Input.Keys.END, "Cyan Player", this);
+        player2 = new Player(0, midpointY, 16, 16, Color.ORANGE, Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.C, Input.Keys.V, Input.Keys.X, "Orange Player", this);
 
         egg = new easterEgg();
         this.midpointX = midpointX;

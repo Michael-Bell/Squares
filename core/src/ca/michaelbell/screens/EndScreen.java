@@ -9,12 +9,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 public class EndScreen implements Screen {
     final Tron game;
     OrthographicCamera camera;
-
+    float gameWidth, gameHeight;
     public EndScreen(Tron game) {
         this.game = game;
+        gameWidth = game.getGameWidth();
+        float screenWidth = Gdx.graphics.getWidth();
+        float screenHeight = Gdx.graphics.getHeight();
+        gameHeight = screenHeight * gameWidth / screenWidth;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
-
+        camera.setToOrtho(false, gameWidth, gameHeight);
     }
 
     @Override
@@ -26,8 +29,9 @@ public class EndScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Game Over", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to try again", 100, 100);
+        game.font.draw(game.batch, "Game Over", gameWidth / 2, gameHeight - 25);
+        game.font.draw(game.batch, "Tap anywhere to try again", 100, gameHeight - 100);
+        game.font.draw(game.batch, game.getEndPlayer() + " ended the game", 100, gameHeight - 125);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {

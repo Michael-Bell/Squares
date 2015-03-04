@@ -7,8 +7,8 @@ public class Player extends Square {
     private int UP, DOWN, LEFT, RIGHT, STOP, EGG, RESET;
     private GameWorld world;
 
-    public Player(float x, float y, int width, int height, Color color, int UP, int DOWN, int LEFT, int RIGHT, int STOP, int RESET, int EGG, GameWorld world) {
-        super(x, y, width, height, world);
+    public Player(float x, float y, int width, int height, Color color, int UP, int DOWN, int LEFT, int RIGHT, int STOP, int RESET, int EGG, String enemy, GameWorld world) {
+        super(x, y, width, height, enemy, world);
         this.world = world;
         this.UP = UP;
         this.DOWN = DOWN;
